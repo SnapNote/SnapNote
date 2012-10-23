@@ -1,13 +1,36 @@
-KohanaAuthDemo
+SnapNote
 ==============
 
-This demo Kohana app shows how to use the latest version of UserAdmin: https://github.com/eblount/useradmin
+SnapNote is a web-based note taking program, written in PHP, and based on Kohana framework with several additional open source modules.
 
-It also includes my Kohana module to theme Useradmin using Twitter Bootstrap, and it shows how to easily use an additional field added to the users table (name).
+SnapNote has a REST API at its core. The website generally acts as a client of the web service, which should make developing additional clients easy. The one exception is that the user login and management features are only available through the website. API access is then granted by use of an API key.
 
-Feel free to use this application as an example, or to fork it and use it as a base for other applications (which is what I plan to do).
+This project is still under development. Currently, users can log in, manage and view notes and labels, and manage users (admin permission).
+
+Version 1 plans include:
+Star notes
+Templates
+Trash
+Log
+Pagination
+Search
+Bulk actions in list view
+
+Version 2 plans include:
+AJAX Frontend
+Rich Editing
+Versioning/Version Management
+Sharing
+Document API
 
 Credits:
+Restful was forked from michal-m:
+https://github.com/michal-m/kohana-modules-restful
+
+Restify and Dispatch were forked from Morgan:
+https://github.com/morgan/kohana-restify
+https://github.com/morgan/kohana-dispatch
+
 Useradmin was originally forked from Mixu:
 https://github.com/mixu/useradmin
 
