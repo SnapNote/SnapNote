@@ -111,6 +111,9 @@ Kohana::modules(array(
 	   'unittest'   => MODPATH.'unittest',   // Unit testing
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	   'email'      => MODPATH.'email',      // Email
+	   'restful'    => MODPATH.'restful',    // RESTful interface
+	   'restify'    => MODPATH.'restify',    // RESTify API Tester
+	   'dispatch'   => MODPATH.'dispatch',   // Dispatch - REST client for Kohana
 	));
 
 Cookie::$salt = '2341wwer4234w5d522ywerg2313hyjk586rd4errt45';
@@ -119,9 +122,13 @@ Cookie::$salt = '2341wwer4234w5d522ywerg2313hyjk586rd4errt45';
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+Route::set('api', 'api(/<controller>(/<id>(/<subset>(/<id2>))))')
+	->defaults(array(
+		'directory' => 'api'
+	));
 Route::set('default', '(<controller>(/<action>(/<id>(/<id2>))))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'notes',
 		'action'     => 'index',
 	));
 

@@ -31,3 +31,12 @@
 [submodule "modules/useradmin-bootstrap"]
 	path = modules/useradmin-bootstrap
 	url = git@github.com:eblount/useradmin-bootstrap.git
+[submodule "modules/restful"]
+	path = modules/restful
+	url = git://github.com/eblount/kohana-modules-restful.git
+[submodule "modules/restify"]
+	path = modules/restify
+	url = git://github.com/eblount/kohana-restify.git
+[submodule "modules/dispatch"]
+	path = modules/dispatch
+	url = git://github.com/eblount/kohana-dispatch.git

@@ -5,6 +5,7 @@ class Controller_User extends Userbootstrap_Controller_User {
 		'username', 
 		'password', 
 		'email',
-		'name'
+		'name',
+		'api_key'
 	);
 }

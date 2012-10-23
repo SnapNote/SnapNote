@@ -12,6 +12,9 @@
 
   <h3>Name, Username &amp; Email Address</h3>
   <p><?php echo $user->name ?> &mdash; <?php echo $user->username ?> &mdash; <?php echo $user->email ?></p>
+  
+  <h3>API Key</h3>
+  <p><?php echo $user->api_key; ?></p>
 
   <h3>Login Activity</h3>
   <p>Last login was <?php echo date('F jS, Y', $user->last_login) ?>, at <?php echo date('h:i:s a', $user->last_login) ?>.<br/>Total logins: <?php echo $user->logins ?></p>

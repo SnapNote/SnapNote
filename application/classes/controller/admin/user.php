@@ -5,6 +5,7 @@ class Controller_Admin_User extends Useradmin_Controller_Admin_User {
 		'username', 
 		'password', 
 		'email',
-		'name'
+		'name',
+		'api_key'
 	);
 }
