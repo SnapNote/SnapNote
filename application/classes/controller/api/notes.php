@@ -25,7 +25,11 @@ class Controller_Api_Notes extends Controller_Api_Secure
 				$this->response($this->_output_note($note));
 			}
 		} else {
-			$this->response(array('notes'=>$this->user->notes()));
+			$q = $this->request->query('q');
+			if(!empty($q))
+				$this->response(array('notes'=>$this->user->notes($q)));
+			else
+				$this->response(array('notes'=>$this->user->notes()));
 		}
 	}
 

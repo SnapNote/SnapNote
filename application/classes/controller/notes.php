@@ -27,7 +27,44 @@ class Controller_Notes extends Controller_App {
 		
 		$this->template->header = $label['name'];
         $this->template->content = View::factory('notes/label')
+			->set('label', $label)
 			->set('notes', $label['notes']);
+	}
+	
+	public function action_star()
+	{
+		$id = $this->request->param('id');
+
+		$note = Dispatch::factory('api/notes/'.$id)->find();
+		if(!$note->loaded())
+			throw new Kohana_404_Exception();
+
+		if(!empty($_REQUEST['action'])) {
+			if($_REQUEST['action'] == 'unstar') {
+				$noteLabel = Dispatch::factory('api/notes/'.$id.'/labels/'.Model_Label::LABEL_STARRED);
+				$noteLabel->delete();
+			} elseif($_REQUEST['action'] == 'star') {
+				$noteLabel = Dispatch::factory('api/notes/'.$id.'/labels');
+				$noteLabel->set('label_id', Model_Label::LABEL_STARRED);
+				$noteLabel->create();
+			}
+		}
+		if(!empty($_REQUEST['redirect']))
+			$this->request->redirect($_REQUEST['redirect']);
+	}
+
+	public function action_search()
+	{
+		if(empty($_REQUEST['q']))
+			$this->request->redirect('/');
+
+		$notes = Dispatch::factory('api/notes?q='.$_REQUEST['q'])->find();
+		if(!$notes->loaded())
+			throw new Kohana_404_Exception();
+
+		$this->template->header = 'Search: '.$_REQUEST['q'];
+        $this->template->content = View::factory('notes/label')
+			->set('notes', $notes['notes']);
 	}
 
 	public function action_archive()

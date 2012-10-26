@@ -22,7 +22,7 @@ class Model_User extends Useradmin_Model_User
 		$parent = parent::rules();
 		// fixes the min_length username value
 		$parent['username'][1] = array('min_length', array(':value', 1));
-		$parent['name'][] = array('not_empty');
+		$parent['name'][] = array('min_length', array(':value', 1));;
 	    $parent['email'][] = array('email');
 		return $parent;
 	}
@@ -61,15 +61,27 @@ class Model_User extends Useradmin_Model_User
 				->get('email');
 	}
 
-	public function notes()
+	public function notes($search = null)
 	{
 		$notes = array();
-		foreach($this->notes
-			->find_all() as $note)
-			$notes[$note->note->id] = array(
-				'id' => $note->note->id,
-				'subject' => $note->note->subject,
-			);
+		$find_notes = $this->notes;
+		if(!empty($search)) {
+			$search = explode(' ', $search);
+			$find_notes->with('note');
+			foreach($search as $keyword)
+				$find_notes->and_where('note.subject','like',"%{$keyword}%");
+		}
+		foreach($find_notes->find_all() as $note) {
+			$note_labels = $note->note->noteLabels($this->id);
+			if($this->id == Model_Label::LABEL_TRASH || !array_key_exists(Model_Label::LABEL_TRASH, $note_labels)) {
+				$notes[$note->note->id] = array(
+					'id' => $note->note->id,
+					'subject' => $note->note->subject,
+					'labels' => $note_labels,
+					'modified' => $note->note->modified,
+				);
+			}
+		}
 		return $notes;
 	}
 }

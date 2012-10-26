@@ -21,7 +21,7 @@
             <ul class="nav">
              <?php
              if (Auth::instance()->logged_in()){
-                echo '<li class="active">'.Html::anchor('/', 'Home').'</li>';
+                //echo '<li class="active">'.Html::anchor('/', 'Home').'</li>';
                 echo '<li>'.Html::anchor('notes/edit', 'Create Note').'</li>';
                 echo '<li>'.Html::anchor('user/profile', 'My Profile').'</li>';
 				echo '<li class="hidden-desktop">'.Html::anchor('notes/labels', 'Manage Labels').'</li>';
@@ -34,8 +34,8 @@
              ?>
             </ul>
           	<?php if (Auth::instance()->logged_in()): ?>
-            <form class="navbar-search pull-left">
-    		<input type="text" class="search-query" placeholder="Search">
+            <form class="navbar-search pull-left" action="/notes/search" method="get">
+    		<input type="text" class="search-query" placeholder="Search" name="q" />
     		</form>
             <?php endif; ?>
           </div><!--/.nav-collapse -->

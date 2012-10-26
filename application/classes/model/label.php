@@ -4,6 +4,11 @@ class Model_Label extends ORM
 	public static $class_name = 'label';
 	public static $table_name = 'labels';
 	protected $_table_name = 'labels';
+	
+	const LABEL_CURRENT = '1'; 
+	const LABEL_STARRED = '2'; 
+	const LABEL_TEMPLATES = '3'; 
+	const LABEL_TRASH = '4'; 
 
 	protected $_belongs_to = array(
 		'parent' => array(
@@ -167,13 +172,20 @@ class Model_Label extends ORM
 	{
 		$notes = array();
 		foreach($this->notes
+			->with('note')
 			->where('user_id','=',$user_id)
-			->find_all() as $note)
-			$notes[$note->note->id] = array(
-				'id' => $note->note->id,
-				'subject' => $note->note->subject,
-				'labels' => $note->note->noteLabels($user_id),
-			);
+			->order_by('note.modified', 'desc')
+			->find_all() as $note) {
+			$note_labels = $note->note->noteLabels($user_id);
+			if($this->id == self::LABEL_TRASH || !array_key_exists(self::LABEL_TRASH, $note_labels)) {
+				$notes[$note->note->id] = array(
+					'id' => $note->note->id,
+					'subject' => $note->note->subject,
+					'labels' => $note_labels,
+					'modified' => $note->note->modified,
+				);
+			}
+		}
 		return $notes;
 	}
 

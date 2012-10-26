@@ -67,7 +67,7 @@ class Model_Note extends ORM
 			}
 		}
 	}
-
+	
 	public function removeLabel($label_id, $user_id)
 	{
 		$current_label = $this->labels
@@ -92,6 +92,7 @@ class Model_Note extends ORM
         if (!$this->pk() || isset($this->_changed[$this->_primary_key])) {
         	$this->created = date('Y-m-d H:i:s');
         }
+       	$this->modified = date('Y-m-d H:i:s');
         return parent::save($validation);
     }
 	
